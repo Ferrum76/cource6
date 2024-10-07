@@ -32,7 +32,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'django_apscheduler',
     'client',
-    'users'
+    'users',
+    'blog',
 ]
 
 MIDDLEWARE = [
