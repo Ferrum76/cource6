@@ -1,0 +1,14 @@
+{% extends 'client/base.html' %}
+{% block content %}
+
+<div class="container">
+
+    {% for object in object_list %}
+    <p>Клиент: {{ object.client }}</p>
+    <p>Время последней рассылки: {{ object.last_try }}</p>
+    <p>Статус: {{ object.status }}</p>
+    {% endfor %}
+
+</div>
+
+{% endblock %

@@ -1,0 +1,36 @@
+{% extends 'client/base.html' %}
+{% block content %}
+ <h4 class="my-2 font-weight-normal">Всего рассылок: {{ mailing_all }} </h4>
+<h4 class="my-2 font-weight-normal">Активных рассылок: {{ mailing_active }} </h4>
+<h4 class="my-2 font-weight-normal">Уникальных клиентов: {{ client_unique }} </h4>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    {% for blog in blog_list %}
+    <div class="col-3">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">{{ blog.title | capfirst }} </h4>
+                <h4 class="my-0 font-weight-normal">{{blog.content}} </h4>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% if user.is_authenticated %}
+    {% for mailing in object_list %}
+    {% if user == mailing.owner or perms.mailing.view_mailing%}
+    <div class="col-3">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">{{ mailing.pk | capfirst }} </h4>
+                <h4 class="my-0 font-weight-normal"> Статус: {{mailing.get_status_display}} </h4>
+            </div>
+            <div class="card-body">
+                <a class="btn btn-primary" href="{% url 'client:mailing_detail' mailing.pk %}"
+                   role="button">Подробнее</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}

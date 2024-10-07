@@ -1,0 +1,22 @@
+{% extends 'client/base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row text-center">
+        <div class="col-3">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">{{ object.email | capfirst }}</h4>
+                </div>
+                <div class="card-body">
+                    <p class="text-md-start">Имя: {{ object.first_name | capfirst }}</p>
+                    <p class="text-md-start">Фамилия: {{ object.last_name | capfirst }}</p>
+                    <p class="text-md-start">Комментарий:  {{ object.comment | capfirst }}</p>
+                    <a class="btn btn-primary mb-3" href="{% url 'client:client_update' object.pk %}" role="button">Редактировать</a>
+                    <a class="btn btn-primary mb-3" href="{% url 'client:client_delete' object.pk %}" role="button">Удалить</a>
+                    <a class="btn btn-primary mb-3" href="{% url 'client:client_list' %}" role="button">Назад</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'client/base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row text-center">
+        {% for client in object_list %}
+        {% if user == client.owner %}
+        <div class="col-3">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">{{ client.email | capfirst }}</h4>
+                </div>
+                <div class="card-body">
+                    {% if client.last_name %}
+                    <div class="mb-1 text-body-secondary">{{ client.first_name }} {{ client.last_name }}</div>
+                    {% elif not client.last_name %}
+                    <div class="mb-1 text-body-secondary">{{ client.first_name }}</div>
+                    {% endif %}
+                    <p class="card-text mb-auto">{{ client.comment|truncatechars:100 }}</p>
+                    <a class="btn btn-primary" href="{% url 'client:client_detail' client.pk %}" role="button">Просмотр</a>
+                </div>
+                <a class="btn btn-danger mb-3" href="{% url 'client:client_delete' client.pk %}" role="button">Удалить</a>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

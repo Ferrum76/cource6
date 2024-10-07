@@ -1,0 +1,19 @@
+{% extends 'client/base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row text-center">
+        {% for massage in object_list %}
+        <div class="col-3">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">{{ massage.subject | capfirst }}</h4>
+                </div>
+                <div class="card-body">
+                    <a class="btn btn-primary" href="{% url 'client:message_detail' massage.pk %}" role="button">Просмотр</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

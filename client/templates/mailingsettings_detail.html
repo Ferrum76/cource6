@@ -1,0 +1,29 @@
+{% extends 'client/base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row text-center">
+        <div class="col-3">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">{{ object.name | capfirst }}</h4>
+                </div>
+                <div class="card-body">
+                    {% if object %}
+                    <p class="text-md-start">Время начала рассылки: {{object.start_time}}</p>
+                    <p class="text-md-start">Время окончания рассылки: {{object.end_time}}</p>
+                    {% for client in object.clients.all %}
+                        <p class="text-md-start">Клиент: {{client.email}}</p>
+                    {% endfor %}
+                    <p class="text-md-start">Статус: {{ object.get_status_display | capfirst }}</p>
+                    <a class="btn btn-primary mb-3" href="{% url 'client:mailing_update' object.pk %}" role="button">Редактировать</a>
+                    <a class="btn btn-primary mb-3" href="{% url 'client:mailing_list' %}" role="button">Назад</a>
+                    {% if user == object.owner %}
+                    <a class="btn btn-danger mb-3" href="{% url 'client:mailing_delete' object.pk %}" role="button">Удалить</a>
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
