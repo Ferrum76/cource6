@@ -1,0 +1,39 @@
+{% extends 'client/base.html' %}
+{% load my_tags %}
+{% block content %}
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="col">
+                <div class="card shadow-sm">
+                    <img src="{{ object.images | media_filter }}">
+                    <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                            <p class="card-text">{{object.title}}</p>
+                            <p class="card-text">{{object.content}}</p>
+                            <p class="card-text">{{object.publish_at}}</p>
+                            <p class="card-text">{{object.count_views}} просмотров</p>
+                        </ul>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a class="btn btn-primary" href="{% url 'blog:blog_list' %}"
+                                   role="button">Назад</a>
+                                {% if perms.blog.can_edit or user ==  blog.user %}
+                                <a class="btn btn-primary" href="{% url 'blog:blog_update' blog.pk %}"
+                                   role="button">Редактировать</a>
+                                <a class="btn btn-primary" href="{% url 'blog:blog_delete' blog.pk %}"
+                                   role="button">Удалить</a>
+                                {% endif %}
+
+                            </div>
+                            <small class="text-body-secondary">9 mins</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock  %}
